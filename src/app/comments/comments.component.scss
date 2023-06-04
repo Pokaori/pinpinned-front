@@ -1,0 +1,36 @@
+.comment-add{
+  transform: scale(0.8);
+  color:white;
+}
+.rating{
+  text-align: center;
+}
+.comment-sect {
+  max-height: 100%;
+  height: 25vh;
+  width:100%;
+  overflow: auto;
+}
+.comment-divider{
+  width:100%;
+  text-align: center;
+}
+
+.comment{
+  text-align:left;
+}
+.person{
+  vertical-align: bottom;
+  transform: scale(1.2);
+}
+
+.comment-utils{
+  text-align: right;
+}
+
+.comment-utils button[mat-mini-fab]{
+  color: white;
+  transform: scale(0.7);
+  vertical-align: top;
+}
+

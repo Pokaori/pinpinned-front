@@ -1,0 +1,7 @@
+<app-navigation ></app-navigation>
+<mat-card>
+  <h2 class = "verify-message mt-5">
+    <mat-card-content *rxIf="isConfirm" class="success"> Congratulation! You are verified!</mat-card-content>
+    <mat-card-content *rxIf="backErr"  class="danger"> Verification went wrong. Please, try again later or use another link!</mat-card-content>
+  </h2>
+</mat-card>

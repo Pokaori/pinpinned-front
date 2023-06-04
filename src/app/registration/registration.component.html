@@ -1,0 +1,73 @@
+<form class="example-form m-4" [formGroup]="registerForm" *ngIf="!isRegistered">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>First name&nbsp;&nbsp;</mat-label>
+          <input  formControlName="firstName" matInput>
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name&nbsp;&nbsp;</mat-label>
+          <input formControlName="lastName" matInput>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <mat-form-field class="custom-input" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" class="custom-input" type="email" matInput placeholder="example@example.com" color="primary">
+          <mat-icon matSuffix color="accent">alternate_email</mat-icon>
+          <mat-error *rxIf="f?.['email']?.errors">Invalid email</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <mat-form-field class="custom-input" appearance="outline">
+          <mat-label>Phone number&nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+          <input formControlName="phoneNumber" class="custom-input" type="tel" matInput placeholder="097-555-1234" color="primary">
+          <mat-icon matSuffix color="accent">phone</mat-icon>
+          <mat-error *rxIf="f?.['phoneNumber']?.errors">Invalid phone number</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <mat-form-field appearance="outline" >
+          <mat-label>Password&nbsp;&nbsp;</mat-label>
+          <input  formControlName="password" matInput type="password">
+          <mat-error *rxIf="f?.['password']?.errors?.['minlength']">Must be at least 6 character</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <mat-form-field appearance="outline" >
+          <mat-label >Repeat Password&nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+          <input formControlName="confirmPassword" matInput type="password">
+          <mat-error *rxIf="f?.['confirmPassword']?.errors">Passwords should match</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+        <mat-form-field class="custom-input" appearance="outline">
+          <mat-label>Birth Date&nbsp;&nbsp;</mat-label>
+          <input   formControlName="dateBirth" placeholder="MM/DD/YYYY"  matInput [matDatepicker]="picker" [max]="maxDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker  startView="multi-year"></mat-datepicker>
+          <mat-error *rxIf="f?.['dateBirth']?.hasError('matDatepickerMax')">Should be less than today</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field  class="custom-input" appearance="outline">
+        <mat-label>Gender&nbsp;&nbsp;</mat-label>
+        <mat-select  formControlName="gender"  name="gender">
+          <mat-option [value]="gender.key" *rxFor="let gender of choicesGend | keyvalue: unsorted">{{gender.key}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-error *rxIf="backErr">{{backErr}}</mat-error>
+    <button mat-flat-button color="primary" class="submit-but mt-2" (click)="userRegister()">Submit</button>
+  </div>
+</form>
+<h4 *ngIf="isRegistered" class="reg-message mt-5">Email is sent! Please, verify your account.</h4>

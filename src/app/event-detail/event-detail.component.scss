@@ -1,0 +1,75 @@
+.title {
+  text-align: center;
+  width: 40%;
+
+}
+
+.info-align {
+  text-align: left;
+}
+
+.tags-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assigned-chip {
+  background-color: rgb(27, 74, 156) !important;
+  color: white !important;
+  --mdc-chip-label-text-color: white;
+}
+
+.icon-title {
+  transform: scale(1.5);
+  vertical-align: sub;
+}
+
+.submit-but {
+  height: 50px;
+  width: 125px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-display {
+  transform: scale(1.6);
+}
+
+.explore-sect {
+  text-align: center;
+  max-height: 100%;
+  height: 100%;
+}
+
+.align-title {
+  width: 30%;
+  vertical-align: top;
+  top:0;
+
+}
+
+.titlebox {
+  display: flex;
+  max-height: 60%;
+}
+
+button[mat-mini-fab]{
+  color:white;
+  transform: scale(1.1);
+}
+
+.cancel-chip {
+  background-color: dimgray !important;
+  color: white !important;
+  --mdc-chip-label-text-color: white;
+  transform: scale(1.2);
+}
+
+.comments{
+  max-height: 100%
+}

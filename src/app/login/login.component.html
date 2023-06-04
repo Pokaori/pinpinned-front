@@ -1,0 +1,26 @@
+<div>
+  <form class="login-form m-4" [formGroup]="loginForm">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <mat-form-field class="custom-input" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="username" class="custom-input" type="email" matInput placeholder="example@example.com" color="primary" name="email">
+            <mat-error *rxIf="f?.['username']?.errors">Invalid email</mat-error>
+            <mat-icon matSuffix color="accent">alternate_email</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" matInput type="password"  name="password">
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-error *rxIf="backErr">{{backErr}}</mat-error>
+      <button mat-flat-button color="primary" class="submit-but mt-2" (click)="userLogin()">Sign In</button>
+    </div>
+  </form>
+</div>

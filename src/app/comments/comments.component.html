@@ -1,0 +1,31 @@
+<h5>Comments</h5>
+<button mat-flat-button color="primary" class="comment-add" (click)="openDialog('Create')" *rxIf="!isCommented()">Write a
+  comment
+  <mat-icon class="icon-display">add_comment</mat-icon>
+</button>
+<div class="comment-sect mt-2">
+  <div *rxFor="let comment of schedule?.comments; trackBy: trackByFn" class="container">
+    <div class="comment mt-2">
+      <div class="row">
+        <div class="col-6">
+          <mat-icon color="primary" class=" person"> person_pin</mat-icon>
+          <b> {{ comment?.user?.first_name}} {{comment?.user?.last_name}}</b>
+          <span *rxIf="comment?.user?.id===schedule?.event?.author?.id"> (author)</span>
+          <div class="mt-1">
+            <mat-icon *rxFor="let item of counter(comment.rating);" color="primary">star</mat-icon>
+          </div>
+        </div>
+        <div *rxIf="comment.user?.id===user?.id" class="col comment-utils">
+          <button mat-mini-fab color="primary" (click)="openDialog('Update')">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn"  (click)="openSureDialog('Delete')">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="mt-2">{{comment.text}}</div>
+    </div>
+    <mat-divider class="comment-divider" role="separator" aria-orientation="horizontal"></mat-divider>
+  </div>
+</div>

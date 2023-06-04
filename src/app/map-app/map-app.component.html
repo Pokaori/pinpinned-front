@@ -1,0 +1,22 @@
+<main>
+  <app-navigation (logoutEvent)="resetData()" (changeStateEvent)="changeStatus($event)"></app-navigation>
+  <div id="main-block">
+    <app-map [addMainPoint]="startExplore" (newAddressEvent)="changeAddress($event)" [addSearchPoints]="schedules"
+             [(taped)]="tapedSchedule"></app-map>
+    <div class="right-panel">
+      <mat-tab-group *rxIf="!(authService.isAuthenticated())">
+        <mat-tab label="Sign in">
+          <app-login></app-login>
+        </mat-tab>
+        <mat-tab label="Register">
+          <app-registration></app-registration>
+        </mat-tab>
+      </mat-tab-group>
+      <app-search-event *rxIf="(authService.isAuthenticated()) && pageState===PageState.Search"
+                        [(startExplore)]="startExplore" [address]="address" (schedulesEvent)="searchEvents($event)"
+                        [tapedSchedule]="tapedSchedule"></app-search-event>
+      <app-add-event *rxIf="(authService.isAuthenticated() && pageState===PageState.AddEvent)"
+                     [address]="address"></app-add-event>
+    </div>
+  </div>
+</main>

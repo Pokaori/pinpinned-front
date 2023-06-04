@@ -1,0 +1,73 @@
+<div class="m-4 explore-sect">
+  <div class="titlebox">
+    <p class="align-title"></p>
+    <h3 class="title"><p>{{schedule?.event?.title}}</p></h3>
+    <p class="align-title">
+      <span *rxIf="isFinished()">
+        <mat-chip class="cancel-chip mb-2"> Finished </mat-chip>
+      </span>
+      <button mat-mini-fab color="primary" class="m-md-2" matTooltip="Subscribe"
+              *rxIf="!isFinished() && !this.schedule?.is_canceled && !subscription && schedule?.event?.author?.id!==this.user?.id"
+              (click)="openDialog()">
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" class="m-md-2 red-but" matTooltip="Unsubscribe"
+              *rxIf="!isFinished() && subscription && schedule?.event?.author?.id!==this.user?.id "
+              (click)="openSureDialog('Unsubscribe')">
+        <mat-icon>notifications_off</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" class="m-md-2 red-but" matTooltip="Cancel"
+              *rxIf="!isFinished() &&  !this.schedule?.is_canceled && schedule?.event?.author?.id===this.user?.id"
+              (click)="openSureDialog('Cancel')">
+        <mat-icon>alarm_off</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" class="m-md-2" matTooltip="Schedule"
+              *rxIf="!isFinished() &&  this.schedule?.is_canceled && schedule?.event?.author?.id===this.user?.id"
+              (click)="openSureDialog('Schedule')">
+        <mat-icon>alarm</mat-icon>
+      </button>
+    </p>
+  </div>
+  <span *rxIf="schedule?.is_canceled">
+    <mat-chip class="cancel-chip mb-2"> Canceled </mat-chip>
+  </span>
+
+  <div><small>
+    <div><b>{{schedule?.event?.author?.first_name}} {{schedule?.event?.author?.last_name}}</b></div>
+    ({{schedule?.event?.author?.email}}) </small></div>
+  <div class="tags-align">
+    <mat-chip-listbox aria-label="Tags">
+      <mat-chip *rxFor="let tag of schedule?.event?.tags" class="assigned-chip">
+        {{tag.name}}
+      </mat-chip>
+    </mat-chip-listbox>
+  </div>
+  <mat-divider class="mb-2"></mat-divider>
+  <p class="lead">{{schedule?.event?.description}}</p>
+  <mat-divider class="mb-2"></mat-divider>
+  <dl class="row me-5 info-align">
+    <dt class="col-sm-3 mt-2">
+      <mat-icon class="icon-title" color="primary">calendar_today</mat-icon>
+    </dt>
+    <dd class="col-sm-9  mt-2">{{schedule?.scheduled_at| date:'MMM d, y, H:mm ' : "UTC"}}</dd>
+    <dt class="col-sm-3 mt-2">
+      <mat-icon class="icon-title" color="primary">place</mat-icon>
+    </dt>
+    <dd class="col-sm-9  mt-2">{{scheduleAddress}}</dd>
+    <dt class="col-sm-3 mt-2">
+      <mat-icon class="icon-title" color="primary">attach_money</mat-icon>
+    </dt>
+    <dd class="col-sm-9  mt-2">{{schedule?.event?.fee || "free"}}</dd>
+    <dt class="col-sm-3 mt-2">
+      <mat-icon class="icon-title" color="primary">timelapse</mat-icon>
+    </dt>
+    <dd class="col-sm-9  mt-2">{{schedule?.event?.duration}}<small> hours</small></dd>
+    <dt class="col-sm-3 mt-2">
+      <mat-icon class="icon-title" color="primary">event_seat</mat-icon>
+    </dt>
+    <dd class="col-sm-9  mt-2">{{schedule?.places_sub}}/{{schedule?.event?.place_number}}</dd>
+  </dl>
+  <mat-divider class="mb-2"></mat-divider>
+  <app-comments class="comments" [schedule]="schedule" [subscription]="subscription" ></app-comments>
+</div>
+

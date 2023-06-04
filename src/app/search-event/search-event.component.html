@@ -1,0 +1,108 @@
+<div class="explore-sect" *rxIf="!schedule">
+  <button id="explore-but" *rxIf="!startExplore" mat-flat-button color="primary" class="submit-but m-4"
+          (click)="startExploreEmit()">Explore!
+    <mat-icon class="icon-display ">search</mat-icon>
+  </button>
+  <div *rxIf="startExplore" class="m-4">
+    <h3>Search event</h3>
+    <mat-card>
+      <mat-card-content>Please, drag marker
+        <mat-icon>place</mat-icon>
+        to set place.
+      </mat-card-content>
+    </mat-card>
+    <mat-form-field class="custom-input mt-4" appearance="outline" disabled="true">
+      <mat-label>Address</mat-label>
+      <input class="custom-input" type="email" matInput color="primary" name="email" disabled="true"
+             [ngModel]="address['title']">
+    </mat-form-field>
+    <form class="login-form" [formGroup]="searchForm">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <mat-form-field class="custom-input" appearance="outline">
+              <mat-label>Distance</mat-label>
+              <input formControlName="distance" class="custom-input number-input" type="number" matInput color="primary"
+                     name="email" min="1">
+              <span matTextSuffix>km</span>
+              <mat-error *rxIf="f?.['distance']?.errors">Invalid distance</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <mat-form-field appearance="outline">
+              <mat-label>Scheduled at greater</mat-label>
+              <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+                     formControlName="scheduledAtStart">
+              <mat-datepicker-toggle matIconSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #picker>
+              </ngx-mat-datetime-picker>
+              <mat-error *rxIf="f?.['scheduledAtStart']?.errors">Invalid start date</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm">
+            <mat-form-field appearance="outline">
+              <mat-label>Scheduled at less</mat-label>
+              <input matInput [ngxMatDatetimePicker]="secondpicker" placeholder="Choose a date"
+                     formControlName="scheduledAtEnd">
+              <mat-datepicker-toggle matIconSuffix [for]="$any(secondpicker)"></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #secondpicker>
+              </ngx-mat-datetime-picker>
+              <mat-error *rxIf="f?.['scheduledAtEnd']?.errors && ! f?.['scheduledAtEnd']?.errors?.['lessDate']">Invalid
+                end date
+              </mat-error>
+              <mat-error *rxIf="f?.['scheduledAtEnd']?.errors?.['lessDate']">Should be less than start date</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <mat-form-field class="custom-input" appearance="outline">
+              <mat-label>Fee</mat-label>
+              <input formControlName="fee" class="custom-input number-input" type="number" matInput color="primary"
+                     name="fee" min="0">
+              <mat-error *rxIf="f?.['fee']?.errors">Invalid distance</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <mat-form-field class="example-chip-list" appearance="outline">
+              <mat-label>Tags</mat-label>
+              <mat-chip-grid #chipGrid aria-label="Enter tags" formControlName="tags">
+                <mat-chip-row *rxFor="let tag of f?.['tags']?.value"
+                              [editable]="true"
+                              (edited)="editTag(tag, $event)"
+                              (removed)="removeTag(tag)"
+                              [aria-description]="'press enter to edit ' + tag">
+                  {{tag}}
+                  <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+                <input placeholder="New tag..."
+                       [formControl]="tagCtrl"
+                       [matAutocomplete]="auto"
+                       [matChipInputFor]="chipGrid"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       (matChipInputTokenEnd)="addTag($event)"
+                       [matChipInputAddOnBlur]="false"
+                />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedTag($event)">
+                  <mat-option *rxFor="let option of filteredTags | async " [value]="option.name">
+                    {{option.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-chip-grid>
+            </mat-form-field>
+          </div>
+        </div>
+        <button mat-flat-button color="primary" class="submit-but" (click)="findEvents()">Search</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="explore-sect" *rxIf="tapedSchedule">
+  <app-event-detail [(schedule)]="schedule"></app-event-detail>
+</div>

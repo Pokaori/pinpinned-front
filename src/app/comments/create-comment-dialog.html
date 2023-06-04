@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{data.title}} Comment</h1>
+<div mat-dialog-content>
+  <div class="mb-4 rating" *rxIf="data.rating">
+    <ngb-rating  [resettable]="true" [max]="5" [formControl]="data.rating">
+      <ng-template let-fill="fill" let-index="index">
+        <mat-icon color="primary">star{{fill === 100 ? '' : '_border'}}</mat-icon>
+      </ng-template>
+    </ngb-rating>
+  </div>
+  <mat-form-field appearance="outline" class="example-full-width mt-2">
+    <mat-label>Description</mat-label>
+    <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" [formControl]="data.text"
+              matInput> </textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>{{data.title}}</button>
+</div>

@@ -1,10 +1,21 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {VerifyEmailComponent} from "./verify-email/verify-email.component";
+import {MapAppComponent} from "./map-app/map-app.component";
+import {HttpClientModule} from "@angular/common/http";
 
-const routes: Routes = [];
-
+const routes: Routes = [{
+  path: 'verify/:id',
+  component: VerifyEmailComponent,
+},
+  {
+  path: '',
+  component: MapAppComponent,
+}];
+//, {preloadingStrategy: PreloadAllModules})
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

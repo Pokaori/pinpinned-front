@@ -1,0 +1,19 @@
+<nav class="navbar navbar-custom navbar-expand-lg ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img fetchpriority="high" src="/assets/images/logo.svg" width="120" height="auto" alt="" class="d-inline-block align-text-top ms-3 logo" >
+    </a>
+    <div *rxIf="authService.isAuthenticated()">
+    <span class="navbar-text">{{user?.first_name}} {{user?.last_name}}</span>
+      <button mat-mini-fab  color="primary"  class="m-md-2"  matTooltip="Find event" (click)="changeState(PageState.Search)" aria-label="find event">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-mini-fab  color="primary"  class="m-md-2"  matTooltip="Create event" (click)="changeState(PageState.AddEvent)" aria-label="add event">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button  class="logout btn btn-outline-secondary me-2" type="button" aria-label="logout" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+</nav>

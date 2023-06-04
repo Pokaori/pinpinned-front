@@ -1,0 +1,25 @@
+<style>
+  .number-input {
+    -moz-appearance: textfield;
+  }
+
+  .number-input::-webkit-outer-spin-button,
+  .number-input::-webkit-inner-spin-button {
+    display: none;
+  }
+
+</style>
+<h1 mat-dialog-title>Subscribe </h1>
+<div mat-dialog-content>
+  <p>Enter guests number</p>
+  <mat-form-field appearance="outline">
+    <mat-label>Guests</mat-label>
+    <input matInput [formControl]="data.people_number" type="number" class="number-input">
+  </mat-form-field>
+  <mat-error *rxIf="data.people_number.errors?.['min']">Should be bigger than 0</mat-error>
+  <mat-error *rxIf="data.people_number.errors?.['max']">Should be less than 10</mat-error>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="data.people_number.value" cdkFocusInitial>Subscribe</button>
+</div>
