@@ -24,7 +24,6 @@ export class MapAppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log("here");
     this.authService.userProfile.subscribe((data) => {
       this.userProfile = data;
     });

@@ -23,13 +23,13 @@ import {MeUser} from "../shared/auth/me-user";
 import {Schedule} from "../shared/interfaces/schedule";
 import {SureDialogComponent} from "../shared/components/sure-dialog/sure-dialog.component";
 import {SubscriptionModel} from "../shared/interfaces/subscription-model";
+import {RxIf} from "@rx-angular/template/if";
 
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentsComponent implements OnInit {
   @Input() schedule: Schedule | undefined;
@@ -108,8 +108,8 @@ export class CommentsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  trackByFn(index:number, comment: CommentModel): string {
-    return comment.id;
+  trackByFn(index:number, comment: CommentModel): number {
+    return index;
   }
 
   getMyComment(){
@@ -149,7 +149,7 @@ export class CommentsComponent implements OnInit {
       }
     `,
   ],
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule,  NgbRating, MatIconModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, NgbRating, MatIconModule, RxIf],
 })
 export class CreateCommentDialog {
   @ViewChild('autosize') autosize?: CdkTextareaAutosize;

@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChange
 import H, {ui} from "@here/maps-api-for-javascript";
 import onResize from "simple-element-resize-detector";
 import {Schedule} from "../shared/interfaces/schedule";
-import { environment } from '../../environment/environment';
+import {environment} from '../../environment/environment';
 
 
 @Component({
@@ -136,10 +136,12 @@ export class MapComponent implements OnInit {
     if (!this.map || !this.behaviour) {
       return;
     }
-    const point = this.map.getCenter()
+    const point = this.map.getCenter();
     if (!this.currentMarker) {
-      let icon_svg = this.svgTemp
-      let icon = new H.map.Icon(icon_svg.replace('${COLOR}', 'rgb(233, 148, 91)').replace('${TEXT}', 'Me'), {
+      let icon_svg = this.svgTemp;
+      let icon = new H.map.Icon(icon_svg
+        .replace('${COLOR}', 'rgb(233, 148, 91)')
+        .replace('${TEXT}', 'Me'), {
         size: {
           h: 60,
           w: 50
@@ -147,11 +149,9 @@ export class MapComponent implements OnInit {
       });
 
       this.currentMarker = new H.map.Marker(point, {data: "Me", icon: icon});
-      // @ts-ignore
-
       this.currentMarker.draggable = true;
     } else {
-      this.currentMarker.setGeometry(this.map.getCenter())
+      this.currentMarker.setGeometry(this.map.getCenter());
     }
     this.map.addObject(this.currentMarker);
     // @ts-ignore

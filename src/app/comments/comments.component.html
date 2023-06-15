@@ -4,7 +4,7 @@
   <mat-icon class="icon-display">add_comment</mat-icon>
 </button>
 <div class="comment-sect mt-2">
-  <div *rxFor="let comment of schedule?.comments; trackBy: trackByFn" class="container">
+  <div *rxFor="let comment of schedule?.comments; strategy:'immediate';trackBy: trackByFn" class="container">
     <div class="comment mt-2">
       <div class="row">
         <div class="col-6">

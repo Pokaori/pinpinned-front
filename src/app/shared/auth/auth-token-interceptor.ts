@@ -12,6 +12,8 @@ import { AuthService } from './auth.service';
 import { TokenModel } from './token-model';
 import { UserProfile } from './user-profile';
 
+const ALLOWED_ENDPOINTS = ['login', 'refresh', 'signup', 'verify']
+
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
   constructor(
@@ -23,8 +25,10 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (req.url.indexOf('login') > -1 || req.url.indexOf('refresh') > -1 || req.url.indexOf('signup') > -1) {
-      return next.handle(req);
+    for (let allowedEndpoint of ALLOWED_ENDPOINTS) {
+      if (req.url.indexOf(allowedEndpoint) > -1) {
+        return next.handle(req);
+      }
     }
 
     const localStorageTokens = localStorage.getItem('tokens');

@@ -31,13 +31,17 @@ export class VerifyEmailComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.route.paramMap.subscribe((params: any) => {
-      this.id = params.get('id');
-      this.confirmRegistration()
-    })
+    // this.route.paramMap.subscribe((params: any) => {
+    //   this.id = params.get('id');
+    //   this.confirmRegistration()
+    // })
 
   }
 
   ngOnInit(): void {
+      this.route.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
+      this.confirmRegistration()
+    })
   }
 }

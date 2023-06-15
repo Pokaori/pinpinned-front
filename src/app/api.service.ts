@@ -26,11 +26,11 @@ export class ApiService {
   }
 
   getTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(`${baseUrl}tags/`, httpOptions);
+    return this.http.get<Tag[]>(`${baseUrl}tags`, httpOptions);
   }
 
   createEvent(event: EventCreate): Observable<EventModel> {
-    return this.http.post<EventModel>(`${baseUrl}event/`, event, httpOptions);
+    return this.http.post<EventModel>(`${baseUrl}event`, event, httpOptions);
   }
 
   getSchedule(schedule_id: string){
@@ -54,7 +54,7 @@ export class ApiService {
       })
     };
     options["params"] = new HttpParams({fromObject: Object(filters)})
-    return this.http.get<Schedule[]>(`${baseUrl}schedule/`, options);
+    return this.http.get<Schedule[]>(`${baseUrl}schedule`, options);
   }
 
   getSubscription(schedule_id: string): Observable<SubscriptionModel> {
@@ -68,7 +68,7 @@ export class ApiService {
   }
 
   subscribeEvent(data: SubscriptionCreate): Observable<SubscriptionModel> {
-    return this.http.post<SubscriptionModel>(`${baseUrl}subscription/`, data, httpOptions);
+    return this.http.post<SubscriptionModel>(`${baseUrl}subscription`, data, httpOptions);
   }
   unsubscribeEvent(subscription_id: string): Observable<SubscriptionModel> {
     return this.http.delete<SubscriptionModel>(`${baseUrl}subscription/${subscription_id}`,  httpOptions);
@@ -85,8 +85,8 @@ export class ApiService {
     return this.http.delete<CommentModel>(`${baseUrl}comment/${comment_id}`, httpOptions);
   }
 
-  verifyEmail( user_id: string ): Observable<User> {
-    return this.http.post<User>(`${baseUrl}auth/verify/${user_id}/`, {}, httpOptions)
+  verifyEmail( user_id: string ): Observable<any> {
+    return this.http.post<any>(`${baseUrl}auth/verify/${user_id}`, {}, httpOptions)
   }
 }
 
